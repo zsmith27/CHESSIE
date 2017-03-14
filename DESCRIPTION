@@ -1,0 +1,13 @@
+Package: Chessie
+Type: Package
+Title: Chessie BIBI
+Version: 0.1
+Date: 2016-03-24
+Author: Zachary M. Smith
+Maintainer: <zsmith@icprb.org>
+Description: Contains functions for assessing non-tidal freshwater benthic
+    macroinverterbate data in the Chesapeake Bay Basin.
+License: GPL-2
+LazyData: TRUE
+RoxygenNote: 6.0.1
+Imports: BIBI
