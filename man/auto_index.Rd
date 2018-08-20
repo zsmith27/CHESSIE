@@ -6,7 +6,9 @@
 \usage{
 auto_index(my.data, bioregion, taxon_rank, calc.date = "11_09_16",
   jack.runs = 100, todays_date = format(Sys.time(), "\%m_\%d_\%y"),
-  seed = TRUE)
+  seed = TRUE, num.itr = "10i",
+  main.dir = "D:/ZSmith/Projects/Chessie_BIBI/Output/March_2017",
+  previous.subdir = NULL)
 }
 \arguments{
 \item{bioregion}{=}

@@ -4,13 +4,13 @@
 \alias{prep_habitat}
 \title{Prepare Habitat Data}
 \usage{
-prep_habitat(Habitat, agg_sample_num = TRUE)
+prep_habitat(habitat.df, agg.sample.num = TRUE, bibi.version)
 }
 \arguments{
-\item{Habitat}{= Habitat data in long format}
-
-\item{agg_sample_num}{= Should the sample number be treated as seperate
+\item{agg.sample.num}{= Should the sample number be treated as seperate
 samples (FALSE) or aggregated into a single sample (TRUE)?}
+
+\item{Habitat}{= Habitat data in long format}
 }
 \value{
 Transform habitat data from long to wide format

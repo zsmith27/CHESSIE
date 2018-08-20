@@ -6,7 +6,7 @@
 \usage{
 auto_score(raw.data, bioregion, taxon_rank, prod_date, metric.freq,
   master.df = master, metric.class = m.c, todays_date = format(Sys.time(),
-  "\%m_\%d_\%y"))
+  "\%m_\%d_\%y"), num_itr = "10i", previous.sub.dir)
 }
 \arguments{
 \item{raw.data}{=}

@@ -4,7 +4,7 @@
 \alias{prep_wq}
 \title{Prepare Water Quality Data}
 \usage{
-prep_wq(WQ)
+prep_wq(tab.wq)
 }
 \arguments{
 \item{WQ}{= Water quality data in long format}

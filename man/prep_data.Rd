@@ -4,25 +4,13 @@
 \alias{prep_data}
 \title{Merge taxa, water quality, and habitat data into one}
 \usage{
-prep_data(Master, Taxa, WQ, Habitat, TAB_EVENT, TAB_STATIONS, TAB_PROJECT,
-  TAB_HUC, Sample_Date = "SAMPLE_DATE_TIME", agg_sample_num = TRUE,
-  clean_taxa = TRUE, development = TRUE, bibi = 2016, month = TRUE)
+prep_data(master.df, odbc.name = "BIBI_2017",
+  sample.date = "SAMPLE_DATE_TIME", agg.samp.num = TRUE,
+  clean.taxa = TRUE, development = TRUE, bibi.version = 2016,
+  month = TRUE)
 }
 \arguments{
-\item{Master}{= Taxa count data}
-
-\item{Taxa}{= Taxonomic counts in long data format}
-
-\item{WQ}{= Water quality data in a long data format}
-
-\item{Habitat}{= Habitat data in a long data format}
-
-\item{TAB_EVENT}{= EVENT_ID}
-
-\item{TAB_STATIONS}{= Station information (STATION_ID, ECOREGION, STRAHLER)}
-
-\item{agg_sample_num}{= Should the sample number be treated as seperate
-samples (FALSE) or aggregated into a single sample (TRUE)?}
+\item{odbc.name}{= The name of the ODBC connection.}
 
 \item{development}{= during index development, "development" should be
 set to TRUE.  When TRUE the sample_number (replicate) with the largest reporting
@@ -30,13 +18,16 @@ value (# of individual observed) is selected for.  During final scoring developm
 should be set to FALSE.  When FALSE all replicates are included in the final
 output.}
 
-\item{bibi}{= If set to 2011 the water quality and habitat parameters will be
+\item{bibi.version}{= If set to 2011 the water quality and habitat parameters will be
 handled as defined in the 2011 Chessie BIBI.  If set to 2016 the water quality
 and habitat parameters will be handled as in the 2016 Chessie BIBI.}
 
 \item{month}{= If true data from Nov, DEC, and Jan eliminated.}
 
-\item{Taxonomy}{= TSN #'s with necessary taxonomic levels (CLASS, ORDER, FAMILY)}
+\item{Master}{= Taxa count data}
+
+\item{agg_sample_num}{= Should the sample number be treated as seperate
+samples (FALSE) or aggregated into a single sample (TRUE)?}
 }
 \value{
 Merge taxa water quality, and habitat data into one large data frame

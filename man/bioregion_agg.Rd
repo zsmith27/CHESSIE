@@ -4,10 +4,10 @@
 \alias{bioregion_agg}
 \title{Bioregion aggregation}
 \usage{
-bioregion_agg(Bioregion.df)
+bioregion_agg(bioregion.df)
 }
 \arguments{
-\item{Bioregion.df}{= Bioregion data frame to be aggregated}
+\item{bioregion.df}{= Bioregion data frame to be aggregated}
 }
 \value{
 Prepares the bioregion data for metric calculations.

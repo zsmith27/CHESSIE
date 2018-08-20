@@ -114,43 +114,33 @@ site_classification <- function(env.param){
 #==============================================================================
 #'Just Important Environmental Parameters
 #'
-#'@param Prep.Data = the output of the prep_data function.
+#'@param prep.data = the output of the prep_data function.
 #'@return A data frame of environmental parameters of interest.
 #'@export
 
-shrink_env <- function(Prep.Data){
-  #shrink <- c("EVENT_ID", "STATION_ID", "DATE", "AGENCY_CODE", "SAMPLE_NUMBER",
-  #            "PROJECT_ID", "ECOREGION_LEVEL_4", "LATITUDE", "LONGITUDE", "KARST_TYPE",
-  #            "STRAHLER_STREAM_ORDER","HUC_12", "PCT_FOREST_2006", "BANKS",
-  #            "CH_ALT", "HAB_HETERO", "INSTR_COND", "RIP_ZONE", "EMBED", "SUM",
-  #            "PH", "SPCOND", "DO")
-  #shrink <- c("EVENT_ID", "STATION_ID", "DATE", "AGENCY_CODE", "SAMPLE_NUMBER",
-  #            "PROJECT_ID", "ECOREGION_LEVEL_4", "LATITUDE", "LONGITUDE",
-  #            "KARST_TYPE", "STRAHLER_STREAM_ORDER","HUC_12", "PCT_FOREST_2006",
-  #            "BANKS", "BANKV", "CH_ALT", "EMBED", "EPI_SUB", "FLOW", "RIFF",
-  #            "SED", "RIP_ZONE", "VEL_D", "AESTH", "POOL", "SHAD", "INSTR",
-  #            "HAB_HETERO", "INSTR_COND",
-  #            "PH", "SPCOND", "DO", "WTEMP")
-  if ("ICPRB_BIOREGION_ID" %in% names(Prep.Data)) {
-    shrink <- c("EVENT_ID", "STATION_ID", "DATE", "AGENCY_CODE", "SAMPLE_NUMBER",
-                "PROJECT_ID", "ECOREGION_LEVEL_4", "LATITUDE", "LONGITUDE",
-                "STRAHLER_STREAM_ORDER", "HUC_12", "SUBREGION_DESCRIPTION",
-                "ICPRB_BIOREGION_ID",
-                "BANKS", "BANKV", "CH_ALT", "EMBED", "EPI_SUB", "FLOW", "RIFF",
-                "SED", "RIP_ZONE", 
-                "PH", "SPCOND", "DO", "WTEMP")
-  } else {
-    shrink <- c("EVENT_ID", "STATION_ID", "DATE", "AGENCY_CODE", "SAMPLE_NUMBER",
-                "PROJECT_ID", "ECOREGION_LEVEL_4", "LATITUDE", "LONGITUDE",
-                "STRAHLER_STREAM_ORDER", "HUC_12", "SUBREGION_DESCRIPTION",
-                #"ICPRB_BIOREGION_ID",
-                "BANKS", "BANKV", "CH_ALT", "EMBED", "EPI_SUB", "FLOW", "RIFF",
-                "SED", "RIP_ZONE", 
-                "PH", "SPCOND", "DO", "WTEMP")
+shrink_env <- function(prep.data){
+  # Keep only the columns associated with sample identification (event ID, 
+  # tation ID, etc.) and environmental variables (habitat and water quality).
+  shrink <- c("EVENT_ID", "STATION_ID", "DATE", "AGENCY_CODE", "SAMPLE_NUMBER",
+              "PROJECT_ID", "ECOREGION_LEVEL_4", "LATITUDE", "LONGITUDE",
+              "STRAHLER_STREAM_ORDER", "HUC_12", "SUBREGION_DESCRIPTION",
+              "ICPRB_BIOREGION_ID", "BANKS", "BANKV", "CH_ALT", "EMBED",
+              "EPI_SUB", "FLOW", "RIFF", "SED",
+              #"RIP_ZONE", 
+              "PH", "SPCOND", "DO", "WTEMP")
+  #============================================================================
+  # If the column  "ICPRB_BIOREGION_ID" does not exist, then omit it from
+  # vector of column names, shrink.
+  if (!"ICPRB_BIOREGION_ID" %in% names(prep.data)) {
+    shrink <- shrink[!shrink %in% "ICPRB_BIOREGION_ID"]
   }
-  
-  env.final <- unique(Prep.Data[, shrink])
-  return(env.final)
+  #============================================================================
+  # Subset the data to only include the specified columns and make sure each
+  # row is unique.
+  final.df <- unique(prep.data[, shrink])
+  #============================================================================
+  # End shrink_env function.
+  return(final.df)
 }
 
 #==============================================================================
@@ -216,6 +206,7 @@ remove_errors <- function(env.df){
   env.df$FLOW <- ifelse(env.df$FLOW >= 0 & env.df$FLOW <= 20, env.df$FLOW, NA)
   env.df$RIFF <- ifelse(env.df$RIFF >= 0 & env.df$RIFF <= 20, env.df$RIFF, NA)
   env.df$SED <- ifelse(env.df$SED >= 0 & env.df$SED <= 20, env.df$SED, NA)
+  #env.df$VEL_D <- ifelse(env.df$VEL_D >= 0 & env.df$VEL_D <= 20, env.df$VEL_D, NA)
   #env.df$RIP_ZONE <- ifelse(env.df$RIP_ZONE >= 0 & env.df$RIP_ZONE <= 20, env.df$RIP_ZONE, NA)
   #env.df$INSTR <- ifelse(env.df$INSTR >= 0 & env.df$INSTR <= 20, env.df$INSTR, NA)
   #env.df$POOL <- ifelse(env.df$POOL >= 0 & env.df$POOL <= 20, env.df$POOL, NA)
@@ -265,16 +256,18 @@ prep_class_multi <- function(Prep_Env){
   wq_params <- c("SPCOND", "PH", "DO")
   env.df$NA_WQ <- apply(is.na(env.df[, wq_params]), 1, sum)
   
+  # changes lower threshold from 500 to 300 on 4/10/2017.
   env.df$DEG_SPCOND <- ifelse(env.df$SPCOND >= 1000, 3, 
                               ifelse(env.df$SPCOND >= 750, 2,
-                                     ifelse(env.df$SPCOND > 500, 1,
+                                     ifelse(env.df$SPCOND > 300, 1,
                                             ifelse(is.na(env.df$SPCOND), NA, 0))))
   
   env.df$DEG_PH <- ifelse(env.df$PH > 9.5 | env.df$PH < 4, 3,
                           ifelse(env.df$PH > 9 | env.df$PH < 5, 2,
                                  ifelse(env.df$PH > 8.5 | env.df$PH < 6, 1,
                                         ifelse(is.na(env.df$PH), NA, 0))))
-  env.df$DEG_DO <- ifelse(env.df$DO <= 5, 1,
+  # changes score from 1 to 2 on 4/10/2017.
+  env.df$DEG_DO <- ifelse(env.df$DO <= 5, 2,
                           ifelse(is.na(env.df$DO), NA, 0))
   
   env.df[c("MEAN_HAB", "DEG_SPCOND", "DEG_PH", "DEG_DO")][is.na(env.df[c("MEAN_HAB","DEG_SPCOND", "DEG_PH", "DEG_DO")])] <- 0

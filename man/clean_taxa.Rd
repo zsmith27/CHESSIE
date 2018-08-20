@@ -4,13 +4,14 @@
 \alias{clean_taxa}
 \title{Clean Taxa}
 \usage{
-clean_taxa(long)
+clean_taxa(taxa.long)
 }
 \arguments{
-\item{Bioregion.df}{= Bioregion data frame to be aggregated}
+\item{taxa.long}{= a data frame, in a long data format, containing taxonomic
+hierarchy columns.}
 }
 \value{
-Standardizes taxa according to the Chessie BIBI standards.
+Standardizes taxa according to the Chessie BIBI protocol.
 }
 \description{
 Clean Taxa

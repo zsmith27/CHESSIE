@@ -4,8 +4,8 @@
 \alias{prep_merge}
 \title{Merge taxa, water quality, and habitat data into one}
 \usage{
-prep_merge(TAB_EVENT, TAXA_PREP, TAB_STATIONS, TAB_WQ, TAB_HABITAT, TAB_PROJECT,
-  TAB_HUC)
+prep_merge(tab.event, taxa.prep, tab.stations, wq.wide, habitat.wide,
+  tab.project, tab.huc)
 }
 \arguments{
 \item{TAB_EVENT}{= EVENT_ID}

@@ -4,7 +4,7 @@
 \alias{prep_taxa}
 \title{Prepare Taxonomic Counts}
 \usage{
-prep_taxa(Master, Taxa)
+prep_taxa(master.df, taxa.df, clean.taxa)
 }
 \arguments{
 \item{Master}{= Taxa count data}

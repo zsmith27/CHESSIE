@@ -10,4 +10,13 @@ Description: Contains functions for assessing non-tidal freshwater benthic
 License: GPL-2
 LazyData: TRUE
 RoxygenNote: 6.0.1
-Imports: BIBI
+Imports: BIBI,
+    maps,
+    ggplot2,
+    mapdata,
+    rgdal,
+    sp,
+    magrittr,
+    data.table,
+    RODBC,
+    gridExtra

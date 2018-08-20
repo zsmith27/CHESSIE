@@ -4,10 +4,10 @@
 \alias{shrink_env}
 \title{Just Important Environmental Parameters}
 \usage{
-shrink_env(Prep.Data)
+shrink_env(prep.data)
 }
 \arguments{
-\item{Prep.Data}{= the output of the prep_data function.}
+\item{prep.data}{= the output of the prep_data function.}
 }
 \value{
 A data frame of environmental parameters of interest.

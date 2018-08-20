@@ -4,14 +4,15 @@
 \alias{prep_subset}
 \title{Prepare subset specific to BIBI}
 \usage{
-prep_subset(Long)
+prep_subset(long.df)
 }
 \arguments{
-\item{Long}{= Data in a long format.}
+\item{long.df}{= Data in a long data format.}
 }
 \value{
 A subset of the data containing sampling events with strahler stream
-order less than or equal to 4 and methods comparable to kick net samples.
+order less than or equal to 4 and samples collected with a kick net or 
+another method considered comparable.
 }
 \description{
 Prepare subset specific to BIBI
